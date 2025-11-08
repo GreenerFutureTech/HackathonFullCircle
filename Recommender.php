@@ -77,93 +77,99 @@ class Recommender {
      * @param bool $debug Whether to output debug information.
      * @return Product[] An array of recommended Product objects, sorted by total co-occurrence score.
      */
-    public function getZeroWasteRecommendations(array $cart, int $limit = 3, bool $debug = false): array
+    public function getZeroWasteRecommendations(array $cart, int $limit = 3, int $minCoOccurrence = 2, bool $debug = false): array
     {
-        $recommendationScores = []; // This will store [related_product_id => total_co_occurrence_count]
-    
-        if ($debug) {
-            echo "<h4>Debugging Recommendation Process (Co-occurrence Count Based)</h4>";
-            echo "Total transactions: " . count($this->transactions) . "<br><br>";
-            echo "Current Cart Items: " . implode(', ', $cart) . "<br><br>";
+        $recommendationScores = [];
+        $numTotalTransactions = count($this->transactions);
+
+        if ($numTotalTransactions === 0) {
+            return [];
         }
-    
+
+        if ($debug) {
+            echo "<h4>Debugging Recommendation Process</h4>";
+            echo "Total transactions: {$numTotalTransactions}<br><br>";
+        }
+
         foreach ($cart as $cartItemId) {
-            // Ensure the cart item exists in our co-occurrence data
             if (!isset($this->coOccurrence[$cartItemId])) {
-                if ($debug) {
-                    echo "<strong>Cart Item:</strong> {$cartItemId} - No co-occurrence data found. Skipping.<br>";
-                }
                 continue;
             }
-    
+
             if ($debug) {
-                echo "<strong>Processing Cart Item:</strong> {$this->productsMeta[$cartItemId]->description} ({$cartItemId})<br>";
+                echo "<strong>Cart Item:</strong> {$cartItemId}<br>";
             }
-    
-            // Iterate through all products that co-occurred with this cart item
+
             foreach ($this->coOccurrence[$cartItemId] as $relatedProductId => $coOccurCount) {
-                // 1. Skip if the related product is already in the cart
+
+                if ($coOccurCount < $minCoOccurrence) {
+                    if ($debug) {
+                        //echo "&nbsp;&nbsp;Skipping {$this->productsMeta[$relatedProductId]->description} due to low co-occurrence count ({$coOccurCount})<br><br>";
+                    }
+                    continue;
+                }
+
                 if (in_array($relatedProductId, $cart)) {
                     continue;
                 }
-    
-                // 2. Skip if product metadata not found (shouldn't happen if coOccurrence is built from valid product IDs)
+
+                // Skip if product metadata not found
                 if (!isset($this->productsMeta[$relatedProductId])) {
-                    if ($debug) {
-                        echo "&nbsp;&nbsp;Related Product: {$relatedProductId} - Metadata not found. Skipping.<br>";
-                    }
                     continue;
                 }
-    
+
                 $relatedProduct = $this->productsMeta[$relatedProductId];
-    
-                // 3. Only recommend zero-waste products
+
+                // Only recommend zero-waste products
                 if (!$relatedProduct->isZeroWaste) {
-                    if ($debug) {
-                        echo "&nbsp;&nbsp;Related Product: {$relatedProduct->description} - Not zero-waste. Skipping.<br>";
-                    }
                     continue;
                 }
-    
-                // Accumulate the raw co-occurrence count
-                // This is the core change: we're just summing up how many times
-                // this related product appeared with *any* item in the cart.
-                $recommendationScores[$relatedProductId] = ($recommendationScores[$relatedProductId] ?? 0) + $coOccurCount;
-    
+
+                // Frequencies
+                $frequencyCartItem = $this->productFrequencies[$cartItemId] ?? 0;
+                $frequencyRelatedProduct = $this->productFrequencies[$relatedProductId] ?? 0;
+
+                // Calculate Lift
+                if ($frequencyCartItem === 0 || $frequencyRelatedProduct === 0) {
+                    $lift = 0;
+                } else {
+                    $supportAB = $coOccurCount / $numTotalTransactions;
+                    $supportA  = $frequencyCartItem / $numTotalTransactions;
+                    $supportB  = $frequencyRelatedProduct / $numTotalTransactions;
+                    $lift = ($supportA > 0 && $supportB > 0) ? $supportAB / ($supportA * $supportB) : 0;
+                }
+
+                // Accumulate
+                $recommendationScores[$relatedProductId] = ($recommendationScores[$relatedProductId] ?? 0) + $lift;
+
                 if ($debug) {
                     echo "&nbsp;&nbsp;Related Product: {$relatedProduct->description}<br>";
                     echo "&nbsp;&nbsp;Zero-Waste: " . ($relatedProduct->isZeroWaste ? "Yes" : "No") . "<br>";
-                    echo "&nbsp;&nbsp;Co-Occurrence Count with '{$this->productsMeta[$cartItemId]->description}': {$coOccurCount}<br>";
-                    // No need for Freq(related) or Lift in this pure co-occurrence approach for scoring
-                    echo "&nbsp;&nbsp;Current total score for '{$relatedProduct->description}': " . ($recommendationScores[$relatedProductId] ?? $coOccurCount) . "<br><br>";
+                    echo "&nbsp;&nbsp;Co-Occurrence Count: {$coOccurCount}<br>";
+                    echo "&nbsp;&nbsp;Total Frequency Of This Item: {$frequencyRelatedProduct}<br>";
+                    echo "&nbsp;&nbsp;Lift: " . number_format($lift, 4) . "<br><br>";
                 }
             }
+
             if ($debug) echo "<hr>";
         }
-    
-        // Sort recommendations by score (total co-occurrence count) in descending order
+
+        // Sort and slice
         arsort($recommendationScores);
-    
-        // Get the top N recommendations
         $topRecommendationIds = array_slice(array_keys($recommendationScores), 0, $limit);
-    
-        // Convert product IDs back to Product objects for display
+
         $recommendedProducts = [];
         foreach ($topRecommendationIds as $productId) {
             $recommendedProducts[] = $this->productsMeta[$productId];
         }
-    
+
         if ($debug) {
-            echo "<h4>Final Top Recommendations (Zero-Waste Only, by Total Co-Occurrence)</h4>";
-            if (empty($recommendedProducts)) {
-                echo "No recommendations found.<br>";
-            } else {
-                foreach ($recommendedProducts as $p) {
-                    echo "{$p->description} (ID: {$p->id}) — Total Co-Occurrence Score: " . number_format($recommendationScores[$p->id], 0) . "<br>";
-                }
+            echo "<h4>Top Recommendations (Zero-Waste Only)</h4>";
+            foreach ($recommendedProducts as $p) {
+                echo "{$p->description} — Score: " . number_format($recommendationScores[$p->id], 4) . "<br>";
             }
         }
-    
+
         return $recommendedProducts;
     }
 

@@ -31,7 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // array_diff preserves keys, so re-index to keep it clean
                     $_SESSION['cart'] = array_values($_SESSION['cart']);
                     break;
+                case 'clear_cart': // <-- Add this new case
+                    $_SESSION['cart'] = [];
+                    break;
             }
+        } elseif ($_POST['action'] === 'clear_cart') { // <-- Handle clear_cart action outside product-specific actions
+            $_SESSION['cart'] = [];
         }
     }
     // Redirect to prevent form resubmission on refresh
@@ -43,8 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $cartProductIds = $_SESSION['cart'];
 
 // Get recommendations based on the current cart
-$recommendations = $recommender->getZeroWasteRecommendations($cartProductIds, 3, true); // Get top 3
+$recommendations = $recommender->getZeroWasteRecommendations($cartProductIds, 3, 2, false); // Get top 3
+if (count($recommendations) < 3) {
+    $recommendations = $recommender->getZeroWasteRecommendations($cartProductIds, 3, 1, false); // Get top 3
 
+}
 // --- Generate Random Products for "Discover" Section ---
 $allProducts = $recommender->getAllProducts();
 $randomProducts = [];
@@ -63,6 +71,15 @@ if (count($availableProductIds) > 0) {
 
     foreach ($selectedRandomIds as $pId) {
         $randomProducts[] = $allProducts[$pId];
+    }
+}
+
+// Calculate zero-waste count in cart
+$zeroWasteCountInCart = 0;
+foreach ($cartProductIds as $cId) {
+    $product = $recommender->getProduct($cId);
+    if ($product && $product->isZeroWaste) {
+        $zeroWasteCountInCart++;
     }
 }
 
@@ -98,7 +115,7 @@ if (count($availableProductIds) > 0) {
 <div class="container">
     <h1>Product Recommendation System</h1>
 
-    <h2>Your Cart:</h2>
+    <h2>Your Cart: <small>(<?= $zeroWasteCountInCart ?>/<?= count($cartProductIds) ?> zero-waste products)</small></h2>
     <?php if (empty($cartProductIds)): ?>
         <p class="empty-message">Your cart is empty. Add some items to get recommendations!</p>
     <?php else: ?>
@@ -124,6 +141,9 @@ if (count($availableProductIds) > 0) {
             <?php endif; ?>
         <?php endforeach; ?>
         </ul>
+        <form method="post" action="index.php" style="margin-top: 20px;">
+            <button type="submit" name="action" value="clear_cart" class="remove-button" style="background-color: #f44336;">Clear Cart</button>
+        </form>
     <?php endif; ?>
 
     <h2>Discover New Products:</h2>
