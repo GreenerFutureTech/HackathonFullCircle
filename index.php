@@ -140,11 +140,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'get_r
     exit;
 }
 
-
+$DEBUGVALUE = false;
 // Get recommendations based on the current cart
-$recommendations = $recommender->getZeroWasteRecommendations($cartProductIds, 3, 2, false); // Get top 3
+$recommendations = $recommender->getZeroWasteRecommendations($cartProductIds, 3, 2, $DEBUGVALUE); // Get top 3
 if (count($recommendations) < 3) {
-    $recommendations = $recommender->getZeroWasteRecommendations($cartProductIds, 3, 1, false); // Get top 3
+    $recommendations = $recommender->getZeroWasteRecommendations($cartProductIds, 3, 1, $DEBUGVALUE); // Get top 3
 
 }
 // --- Generate Random Products for "Discover" Section ---
