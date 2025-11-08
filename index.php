@@ -40,8 +40,81 @@ $transactionLines = json_decode(file_get_contents('transactions.json'), true)['l
 // Initialize the recommender system
 $recommender = new Recommender($transactionLines);
 
-// --- Handle Cart Actions ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Get the current cart from the session
+$cartProductIds = $_SESSION['cart'];
+$productIdsInCart = array_values($cartProductIds); // Get values and re-index for easier checking
+
+
+// --- Handle Recipe Generation (DO NOT REDIRECT HERE) ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'get_recipes') {
+
+    if (!$googleAPIKey) {
+        $recipes = ["Google API key is missing — please set 'googleAPI' in your .env file."];
+    } else {
+        // Collect ingredients from cart
+        $ingredients = [];
+        foreach ($cartProductIds as $cId) {
+            $product = $recommender->getProduct($cId);
+            if ($product) {
+                $ingredients[] = $product->description;
+            }
+        }
+
+        if (empty($ingredients)) {
+            $recipes = ["Your cart is empty — add items to get recipe ideas!"];
+        } else {
+            // Prepare the prompt
+            $prompt = "Suggest a healthy and eco-friendly recipes using the following ingredients and keep it concise and keep it NO meat: (Also, suggest another eco friendly they could add to enhance the recipe)" .
+                      implode(', ', $ingredients);
+            $data = [
+                'contents' => [
+                    [
+                        'parts' => [
+                            [
+                                'text' => $prompt
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+            
+            // Initialize cURL - using Gemini endpoint
+            $ch = curl_init("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" . urlencode($googleAPIKey));
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+                CURLOPT_POSTFIELDS => json_encode($data)
+            ]);
+            
+            // Execute and decode
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($httpCode !== 200) {
+                $recipes = ["API request failed with HTTP code $httpCode. Response: $response"];
+            } else {
+                $responseData = json_decode($response, true);
+    
+                // Debug: Print the entire response to see the structure
+                // echo '<pre>'; print_r($responseData); echo '</pre>';
+                
+                // Extract the recipe text from the Gemini API response
+                $recipes = [];
+                if (isset($responseData['candidates'][0]['content']['parts'][0]['text'])) {
+                    $recipeText = $responseData['candidates'][0]['content']['parts'][0]['text'];
+                    
+                    // If the API returns a single block of text, you might want to split it
+                    // or if it returns multiple recipes, handle accordingly
+                    $recipes = [$recipeText];
+                }
+            }
+        }
+    }
+
+    // Now $recipes contains the list of recipe strings or error messages
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? null;
     $productId = $_POST['product_id'] ?? null;
     $bundleId = $_POST['bundle_id'] ?? null;
@@ -67,8 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Get the current cart from the session
-$cartProductIds = $_SESSION['cart'];
 
 // Get recommendations based on the current cart
 $recommendations = $recommender->getZeroWasteRecommendations($cartProductIds, 3, 2, false); // Get top 3
@@ -80,7 +151,6 @@ if (count($recommendations) < 3) {
 $allProducts = $recommender->getAllProducts();
 $randomProducts = [];
 $numRandomProducts = 3; // How many random products to show
-$productIdsInCart = array_values($cartProductIds); // Get values and re-index for easier checking
 
 // Filter out products already in the cart from the random selection pool
 $availableProductIds = array_keys(array_filter($allProducts, function($product) use ($productIdsInCart) {
@@ -114,62 +184,6 @@ if ($totalCartItems > 0) {
 }
 
 $showDiscountMessage = ($zeroWastePercentage >= 75) && ($totalCartItems > 4);
-
-// --- Handle Recipe Requests ---
-$recipes = [];
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'get_recipes') {
-    $apiKey = $_SESSION['google_api_key'] ?? $_POST['google_api_key'] ?? null;
-    if ($apiKey) {
-        $_SESSION['google_api_key'] = $apiKey;
-
-        // Collect ingredient names from cart
-        $ingredients = [];
-        foreach ($_SESSION['cart'] as $cId) {
-            $product = $recommender->getProduct($cId);
-            if ($product) {
-                $ingredients[] = $product->description;
-            }
-        }
-
-        if (!empty($ingredients)) {
-            $prompt = "Give me 3 creative recipes using some or all of these ingredients: "
-                    . implode(', ', $ingredients)
-                    . ". Provide a title and short description for each.";
-
-            // --- Call Google Generative Language API ---
-            $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . urlencode($apiKey);
-            $data = [
-                "contents" => [
-                    ["parts" => [["text" => $prompt]]]
-                ]
-            ];
-
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            $response = curl_exec($ch);
-            curl_close($ch);
-
-            if ($response) {
-                $decoded = json_decode($response, true);
-                if (isset($decoded['candidates'][0]['content']['parts'][0]['text'])) {
-                    $text = $decoded['candidates'][0]['content']['parts'][0]['text'];
-                    $recipes = explode("\n\n", trim($text));
-                } else {
-                    $recipes[] = "No recipe data returned from API.";
-                }
-            } else {
-                $recipes[] = "Error calling Google API.";
-            }
-        } else {
-            $recipes[] = "Your cart is empty — add items first!";
-        }
-    } else {
-        $recipes[] = "Please enter a valid Google API key.";
-    }
-}
 
 ?>
 
@@ -379,7 +393,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'get_r
 
         <?php if ($showDiscountMessage): ?>
             <p style="color: #28a745; font-weight: bold; text-align: center; background-color: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-                Congratulations! You qualify for a 10% discount on your order!
+                Congratulations! You qualify for a 15% discount on your order!
             </p>
         <?php endif; ?>
     <?php if (empty($cartProductIds)): ?>
@@ -503,14 +517,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'get_r
     <?php endif; ?>
 
     <h2>Get Recipe Ideas 🍳</h2>
+
 <form method="post" action="index.php" style="margin-bottom: 20px;">
     <input type="hidden" name="action" value="get_recipes">
-    <label for="google_api_key">Google API Key:</label><br>
-    <input type="password" id="google_api_key" name="google_api_key"
-           placeholder="Enter your Google API key"
-           value="<?= htmlspecialchars($_SESSION['google_api_key'] ?? '') ?>"
-           style="width: 60%; padding: 8px; margin-top: 5px;"><br><br>
-    <button type="submit" class="add-button" style="background-color: #4285F4;">Get Recipes</button>
+    <button type="submit" class="add-button" style="background-color: #4285F4;">
+        Get Recipes
+    </button>
 </form>
 
 <?php if (!empty($recipes)): ?>
