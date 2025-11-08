@@ -2,10 +2,9 @@
 session_start();
 
 require_once 'Recommender.php';
-
-
-
-
+require_once 'env_loader.php'; // Make sure this path is correct relative to your script
+loadEnv(__DIR__);
+$googleAPIKey = getenv('googleAPI');
 
 $productBundles = [
     'eco_starter_kit' => [
@@ -115,6 +114,62 @@ if ($totalCartItems > 0) {
 }
 
 $showDiscountMessage = ($zeroWastePercentage >= 75) && ($totalCartItems > 4);
+
+// --- Handle Recipe Requests ---
+$recipes = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'get_recipes') {
+    $apiKey = $_SESSION['google_api_key'] ?? $_POST['google_api_key'] ?? null;
+    if ($apiKey) {
+        $_SESSION['google_api_key'] = $apiKey;
+
+        // Collect ingredient names from cart
+        $ingredients = [];
+        foreach ($_SESSION['cart'] as $cId) {
+            $product = $recommender->getProduct($cId);
+            if ($product) {
+                $ingredients[] = $product->description;
+            }
+        }
+
+        if (!empty($ingredients)) {
+            $prompt = "Give me 3 creative recipes using some or all of these ingredients: "
+                    . implode(', ', $ingredients)
+                    . ". Provide a title and short description for each.";
+
+            // --- Call Google Generative Language API ---
+            $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . urlencode($apiKey);
+            $data = [
+                "contents" => [
+                    ["parts" => [["text" => $prompt]]]
+                ]
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            if ($response) {
+                $decoded = json_decode($response, true);
+                if (isset($decoded['candidates'][0]['content']['parts'][0]['text'])) {
+                    $text = $decoded['candidates'][0]['content']['parts'][0]['text'];
+                    $recipes = explode("\n\n", trim($text));
+                } else {
+                    $recipes[] = "No recipe data returned from API.";
+                }
+            } else {
+                $recipes[] = "Error calling Google API.";
+            }
+        } else {
+            $recipes[] = "Your cart is empty — add items first!";
+        }
+    } else {
+        $recipes[] = "Please enter a valid Google API key.";
+    }
+}
 
 ?>
 
@@ -446,6 +501,26 @@ $showDiscountMessage = ($zeroWastePercentage >= 75) && ($totalCartItems > 4);
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
+
+    <h2>Get Recipe Ideas 🍳</h2>
+<form method="post" action="index.php" style="margin-bottom: 20px;">
+    <input type="hidden" name="action" value="get_recipes">
+    <label for="google_api_key">Google API Key:</label><br>
+    <input type="password" id="google_api_key" name="google_api_key"
+           placeholder="Enter your Google API key"
+           value="<?= htmlspecialchars($_SESSION['google_api_key'] ?? '') ?>"
+           style="width: 60%; padding: 8px; margin-top: 5px;"><br><br>
+    <button type="submit" class="add-button" style="background-color: #4285F4;">Get Recipes</button>
+</form>
+
+<?php if (!empty($recipes)): ?>
+    <div style="background-color: #f1f8e9; padding: 15px; border-radius: 10px;">
+        <h3>Recipe Suggestions:</h3>
+        <?php foreach ($recipes as $recipe): ?>
+            <p><?= nl2br(htmlspecialchars($recipe)) ?></p>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 </div>
 </body>
 </html>
