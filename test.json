@@ -1,0 +1,772 @@
+{
+  "lines": [
+      {
+        "product_id": "5uqCF",
+        "description": "Classic Hummus, Waste Free",
+        "category": "Cooler",
+        "subcategory": "Hummus",
+        "zerowaste": true,
+        "transaction": "3e320"
+      },
+      {
+        "product_id": "fk9US",
+        "description": "Carbolic Soap",
+        "category": "Beauty",
+        "subcategory": "Skin Care",
+        "zerowaste": false,
+        "transaction": "9915a"
+      },
+      {
+        "product_id": "UX6E2",
+        "description": "Shea Butter Soap",
+        "category": "Beauty",
+        "subcategory": "Skin Care",
+        "zerowaste": false,
+        "transaction": "9915a"
+      },
+      {
+        "product_id": "wE8DO",
+        "description": "Olive Oil Soap",
+        "category": "Beauty",
+        "subcategory": "Skin Care",
+        "zerowaste": false,
+        "transaction": "9915a"
+      },
+      {
+        "product_id": "qLqFw",
+        "description": "Gluten Free Pie Shell - 2 Pack",
+        "category": "Freezer",
+        "subcategory": "Frozen Dinners",
+        "zerowaste": false,
+        "transaction": "9915a"
+      },
+      {
+        "product_id": "yQiEp",
+        "description": "Yogurt, Grass-Fed (Organic)",
+        "category": "Dairy",
+        "subcategory": "Yogurt & Kefir",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "nNPrJ",
+        "description": "Unsweetened Coconut Yogurt",
+        "category": "Cooler",
+        "subcategory": "Vegan Dairy",
+        "zerowaste": false,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "Xvdcn",
+        "description": "Oats, Large Flake (Organic)",
+        "category": "Bulk",
+        "subcategory": "Oats",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "X9yGs",
+        "description": "Oat Creamer, Unsweetened",
+        "category": "Cooler",
+        "subcategory": "Vegan Milk",
+        "zerowaste": false,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "VjiV5",
+        "description": "Almonds, Natural Sliced",
+        "category": "Bulk",
+        "subcategory": "Nuts",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "oFF9L",
+        "description": "Walnut, Pieces ",
+        "category": "Bulk",
+        "subcategory": "Nuts",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "vPQoD",
+        "description": "Sunflower Seeds, Hulled Roasted No Salt",
+        "category": "Bulk",
+        "subcategory": "Seeds",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "S8XTl",
+        "description": "Sesame Seeds, Natural (Organic)",
+        "category": "Bulk",
+        "subcategory": "Seeds",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "ctIOS",
+        "description": "Sugar, Cane (Organic) ",
+        "category": "Bulk",
+        "subcategory": "Sugar & Sweeteners",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "E5cJy",
+        "description": "Peanuts, Blanched Roasted & Salted",
+        "category": "Bulk",
+        "subcategory": "Nuts",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "uZbDc",
+        "description": "Apricots",
+        "category": "Bulk",
+        "subcategory": "Dried Fruit",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "5kYis",
+        "description": "Prunes, Pitted",
+        "category": "Bulk",
+        "subcategory": "Dried Fruit",
+        "zerowaste": true,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "ZwRl0",
+        "description": "Eggs, Local, Free-Run",
+        "category": "Cooler",
+        "subcategory": "Eggs",
+        "zerowaste": false,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "MzbHx",
+        "description": "Seeded Multigrain Sourdough",
+        "category": "Grocery",
+        "subcategory": "Bread & Wraps",
+        "zerowaste": false,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "WgbJh",
+        "description": "Pears, Sunrise (Organic)",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": false,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "EeWqn",
+        "description": "Melatonin 5mg  Peppermint",
+        "category": "Supplements",
+        "subcategory": "Sleep Support",
+        "zerowaste": false,
+        "transaction": "9d8a5"
+      },
+      {
+        "product_id": "kIzgm",
+        "description": "Peace Tea",
+        "category": "Grocery",
+        "subcategory": "Tea",
+        "zerowaste": false,
+        "transaction": "92312"
+      },
+      {
+        "product_id": "MWi5w",
+        "description": "Awakening Tea",
+        "category": "Grocery",
+        "subcategory": "Tea",
+        "zerowaste": false,
+        "transaction": "92312"
+      },
+      {
+        "product_id": "qIVuk",
+        "description": "Sacred Blend Tea",
+        "category": "Grocery",
+        "subcategory": "Tea",
+        "zerowaste": false,
+        "transaction": "92312"
+      },
+      {
+        "product_id": "oFF9L",
+        "description": "Walnut, Pieces ",
+        "category": "Bulk",
+        "subcategory": "Nuts",
+        "zerowaste": true,
+        "transaction": "28b52"
+      },
+      {
+        "product_id": "rFOPR",
+        "description": "Semi-Sweet Choco",
+        "category": "Bulk",
+        "subcategory": "Baking",
+        "zerowaste": true,
+        "transaction": "28b52"
+      },
+      {
+        "product_id": "zhB3T",
+        "description": "Bananas, Fairtra",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": true,
+        "transaction": "28b52"
+      },
+      {
+        "product_id": "zhB3T",
+        "description": "Bananas, Fairtra",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": true,
+        "transaction": "4108c"
+      },
+      {
+        "product_id": "qtX7q",
+        "description": "Cheese Curds, Wh",
+        "category": "Dairy",
+        "subcategory": "Cheese",
+        "zerowaste": false,
+        "transaction": "e2c53"
+      },
+      {
+        "product_id": "R66PW",
+        "description": "Peaches (Convent",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": false,
+        "transaction": "e2c53"
+      },
+      {
+        "product_id": "B1wGI",
+        "description": "Brazil Nuts, (Or",
+        "category": "Bulk",
+        "subcategory": "Nuts",
+        "zerowaste": true,
+        "transaction": "cb862"
+      },
+      {
+        "product_id": "gSYjl",
+        "description": "Hibiscus Flowers",
+        "category": "Bulk",
+        "subcategory": "Herbs",
+        "zerowaste": true,
+        "transaction": "ba8e2"
+      },
+      {
+        "product_id": "jxJbj",
+        "description": "Kombucha Lemon G",
+        "category": "Cooler",
+        "subcategory": "Drinks",
+        "zerowaste": false,
+        "transaction": "7bdea"
+      },
+      {
+        "product_id": "zh9FQ",
+        "description": "Guernsey Milk Wh",
+        "category": "Dairy",
+        "subcategory": "Milk & Cream",
+        "zerowaste": true,
+        "transaction": "b8a9c"
+      },
+      {
+        "product_id": "jTPeP",
+        "description": "Kimchi, Vegan",
+        "category": "Cooler",
+        "subcategory": "Bulk Cooler",
+        "zerowaste": true,
+        "transaction": "e3ae6"
+      },
+      {
+        "product_id": "PGf8R",
+        "description": "Kefir Starter",
+        "category": "Dairy",
+        "subcategory": "Yogurt & Kefir",
+        "zerowaste": false,
+        "transaction": "e3ae6"
+      },
+      {
+        "product_id": "WFQqm",
+        "description": "Kombucha, Hibisc",
+        "category": "Cooler",
+        "subcategory": "Drinks",
+        "zerowaste": false,
+        "transaction": "e3ae6"
+      },
+      {
+        "product_id": "xF21R",
+        "description": "Guernsey Cheddar",
+        "category": "Dairy",
+        "subcategory": "Cheese",
+        "zerowaste": false,
+        "transaction": "5aadc"
+      },
+      {
+        "product_id": "yQiEp",
+        "description": "Yogurt, Grass-Fe",
+        "category": "Dairy",
+        "subcategory": "Yogurt & Kefir",
+        "zerowaste": true,
+        "transaction": "5aadc"
+      },
+      {
+        "product_id": "ZwRl0",
+        "description": "Eggs, Local, Fre",
+        "category": "Cooler",
+        "subcategory": "Eggs",
+        "zerowaste": false,
+        "transaction": "5aadc"
+      },
+      {
+        "product_id": "aLPh5",
+        "description": "Edamame, In the ",
+        "category": "Freezer",
+        "subcategory": "Frozen Vegetables",
+        "zerowaste": false,
+        "transaction": "36723"
+      },
+      {
+        "product_id": "BNUjM",
+        "description": "Lemon Zest Dish ",
+        "category": "Household",
+        "subcategory": " Bulk Household",
+        "zerowaste": true,
+        "transaction": "36723"
+      },
+      {
+        "product_id": "A7w31",
+        "description": "Tangerine Foamin",
+        "category": "Household",
+        "subcategory": " Bulk Household",
+        "zerowaste": true,
+        "transaction": "36723"
+      },
+      {
+        "product_id": "W1joO",
+        "description": "Mangoes (Convent",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": false,
+        "transaction": "3d5c0"
+      },
+      {
+        "product_id": "zh9FQ",
+        "description": "Guernsey Milk Wh",
+        "category": "Dairy",
+        "subcategory": "Milk & Cream",
+        "zerowaste": true,
+        "transaction": "3d5c0"
+      },
+      {
+        "product_id": "ZwRl0",
+        "description": "Eggs, Local, Fre",
+        "category": "Cooler",
+        "subcategory": "Eggs",
+        "zerowaste": false,
+        "transaction": "dae72"
+      },
+      {
+        "product_id": "wTRUD",
+        "description": "Diced Tomatoes (",
+        "category": "Grocery",
+        "subcategory": "Canned & Preserved",
+        "zerowaste": false,
+        "transaction": "dae72"
+      },
+      {
+        "product_id": "4wlLF",
+        "description": "Black Turtle Bea",
+        "category": "Grocery",
+        "subcategory": "Beans & Legumes",
+        "zerowaste": false,
+        "transaction": "dae72"
+      },
+      {
+        "product_id": "zhB3T",
+        "description": "Bananas, Fairtra",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": true,
+        "transaction": "dae72"
+      },
+      {
+        "product_id": "3TRE1",
+        "description": "Celery, by the S",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": false,
+        "transaction": "dae72"
+      },
+      {
+        "product_id": "6Z2v4",
+        "description": "Mushroom, White ",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": true,
+        "transaction": "dae72"
+      },
+      {
+        "product_id": "SJ6FM",
+        "description": "Red Bell Pepper ",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": false,
+        "transaction": "dae72"
+      },
+      {
+        "product_id": "NN75J",
+        "description": "Onions, Red (Con",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": false,
+        "transaction": "dae72"
+      },
+      {
+        "product_id": "L2ZaK",
+        "description": "Classic BBQ Sauc",
+        "category": "Grocery",
+        "subcategory": "Condiments",
+        "zerowaste": false,
+        "transaction": "c2462"
+      },
+      {
+        "product_id": "L2ZaK",
+        "description": "Classic BBQ Sauc",
+        "category": "Grocery",
+        "subcategory": "Condiments",
+        "zerowaste": false,
+        "transaction": "c2462"
+      },
+      {
+        "product_id": "BBLY6",
+        "description": "Maple Syrup, Amb",
+        "category": "Bulk",
+        "subcategory": "Sugar & Sweeteners",
+        "zerowaste": true,
+        "transaction": "c2462"
+      },
+      {
+        "product_id": "R66PW",
+        "description": "Peaches (Convent",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": false,
+        "transaction": "c2462"
+      },
+      {
+        "product_id": "7pd3s",
+        "description": "Ryazhenka, Grass",
+        "category": "Dairy",
+        "subcategory": "Yogurt & Kefir",
+        "zerowaste": true,
+        "transaction": "c2462"
+      },
+      {
+        "product_id": "7pd3s",
+        "description": "Ryazhenka, Grass",
+        "category": "Dairy",
+        "subcategory": "Yogurt & Kefir",
+        "zerowaste": true,
+        "transaction": "c2462"
+      },
+      {
+        "product_id": "jsI7M",
+        "description": "Granola, Coconut",
+        "category": "Bulk",
+        "subcategory": "Cereals",
+        "zerowaste": true,
+        "transaction": "c2462"
+      },
+      {
+        "product_id": "bZeJp",
+        "description": "3.8% Whole Milk,",
+        "category": "Dairy",
+        "subcategory": "Milk & Cream",
+        "zerowaste": false,
+        "transaction": "e588d"
+      },
+      {
+        "product_id": "M56Zm",
+        "description": "Apples, Fuji (Or",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": false,
+        "transaction": "e588d"
+      },
+      {
+        "product_id": "Xvdcn",
+        "description": "Oats, Large Flak",
+        "category": "Bulk",
+        "subcategory": "Oats",
+        "zerowaste": true,
+        "transaction": "00205"
+      },
+      {
+        "product_id": "V6QVa",
+        "description": "Pumpkin Seeds, S",
+        "category": "Bulk",
+        "subcategory": "Seeds",
+        "zerowaste": true,
+        "transaction": "00205"
+      },
+      {
+        "product_id": "8e0h7",
+        "description": "Sea Salt, Coarse",
+        "category": "Bulk",
+        "subcategory": "Baking",
+        "zerowaste": true,
+        "transaction": "00205"
+      },
+      {
+        "product_id": "vxzS6",
+        "description": "Sourdough, Bistr",
+        "category": "Grocery",
+        "subcategory": "Bread & Wraps",
+        "zerowaste": false,
+        "transaction": "00205"
+      },
+      {
+        "product_id": "yQiEp",
+        "description": "Yogurt, Grass-Fe",
+        "category": "Dairy",
+        "subcategory": "Yogurt & Kefir",
+        "zerowaste": true,
+        "transaction": "00205"
+      },
+      {
+        "product_id": "rEa04",
+        "description": "Dish Soap, Unsce",
+        "category": "Household",
+        "subcategory": " Bulk Household",
+        "zerowaste": true,
+        "transaction": "00205"
+      },
+      {
+        "product_id": "5uqCF",
+        "description": "Classic Hummus, ",
+        "category": "Cooler",
+        "subcategory": "Hummus",
+        "zerowaste": true,
+        "transaction": "00205"
+      },
+      {
+        "product_id": "RdqjC",
+        "description": "Pepper, Black, G",
+        "category": "Bulk",
+        "subcategory": "Spices",
+        "zerowaste": true,
+        "transaction": "00205"
+      },
+      {
+        "product_id": "ulLKK",
+        "description": "Chick Peas, Cann",
+        "category": "Grocery",
+        "subcategory": "Beans & Legumes",
+        "zerowaste": false,
+        "transaction": "d559f"
+      },
+      {
+        "product_id": "x9NSh",
+        "description": "Cilantro (Conven",
+        "category": "Produce",
+        "subcategory": "Fresh Herbs",
+        "zerowaste": true,
+        "transaction": "d559f"
+      },
+      {
+        "product_id": "Qx4NH",
+        "description": "Kale, Dino (Orga",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": false,
+        "transaction": "d559f"
+      },
+      {
+        "product_id": "40qy1",
+        "description": "Yam / Sweet Pota",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": true,
+        "transaction": "d559f"
+      },
+      {
+        "product_id": "Zje9h",
+        "description": "Roasted Strawber",
+        "category": "Freezer",
+        "subcategory": "Ice Cream",
+        "zerowaste": false,
+        "transaction": "a6f2b"
+      },
+      {
+        "product_id": "QEVjn",
+        "description": "Onion, Cooking (",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": false,
+        "transaction": "4f1a5"
+      },
+      {
+        "product_id": "p9Kk6",
+        "description": "Dry Active Yeast",
+        "category": "Grocery",
+        "subcategory": "Baking",
+        "zerowaste": true,
+        "transaction": "018b9"
+      },
+      {
+        "product_id": "BBLY6",
+        "description": "Maple Syrup, Amb",
+        "category": "Bulk",
+        "subcategory": "Sugar & Sweeteners",
+        "zerowaste": true,
+        "transaction": "018b9"
+      },
+      {
+        "product_id": "phm9m",
+        "description": "Vegetable Bouill",
+        "category": "Grocery",
+        "subcategory": "Soup",
+        "zerowaste": false,
+        "transaction": "018b9"
+      },
+      {
+        "product_id": "qX5Dw",
+        "description": "Tomato, Gourmet ",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": false,
+        "transaction": "018b9"
+      },
+      {
+        "product_id": "XkwmM",
+        "description": "Cranberries, Dar",
+        "category": "Bulk",
+        "subcategory": "Snacks & Candy",
+        "zerowaste": true,
+        "transaction": "018b9"
+      },
+      {
+        "product_id": "i9WeU",
+        "description": "Stoneground Rye ",
+        "category": "Bulk",
+        "subcategory": "Flour",
+        "zerowaste": true,
+        "transaction": "018b9"
+      },
+      {
+        "product_id": "NpPbN",
+        "description": "Peanut Butter, S",
+        "category": "Bulk",
+        "subcategory": "Nut & Seed Butter",
+        "zerowaste": true,
+        "transaction": "c3f3b"
+      },
+      {
+        "product_id": "XBjsO",
+        "description": "Conditioner, Uns",
+        "category": "Beauty",
+        "subcategory": "Bulk Beauty",
+        "zerowaste": true,
+        "transaction": "c3f3b"
+      },
+      {
+        "product_id": "qgjZM",
+        "description": "Limes (Conventio",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": false,
+        "transaction": "c454e"
+      },
+      {
+        "product_id": "3TRE1",
+        "description": "Celery, by the S",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": false,
+        "transaction": "c454e"
+      },
+      {
+        "product_id": "zhB3T",
+        "description": "Bananas, Fairtra",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": true,
+        "transaction": "993ac"
+      },
+      {
+        "product_id": "Otn6Y",
+        "description": "Tomato, on the V",
+        "category": "Produce",
+        "subcategory": "Vegetables",
+        "zerowaste": true,
+        "transaction": "993ac"
+      },
+      {
+        "product_id": "BNUjM",
+        "description": "Lemon Zest Dish ",
+        "category": "Household",
+        "subcategory": " Bulk Household",
+        "zerowaste": true,
+        "transaction": "53fe3"
+      },
+      {
+        "product_id": "BNUjM",
+        "description": "Lemon Zest Dish ",
+        "category": "Household",
+        "subcategory": " Bulk Household",
+        "zerowaste": true,
+        "transaction": "53fe3"
+      },
+      {
+        "product_id": "HdsFx",
+        "description": "Dishwasher Table",
+        "category": "Household",
+        "subcategory": " Bulk Household",
+        "zerowaste": true,
+        "transaction": "53fe3"
+      },
+      {
+        "product_id": "0AdM7",
+        "description": "Mangoes, Dried (",
+        "category": "Bulk",
+        "subcategory": "Dried Fruit",
+        "zerowaste": true,
+        "transaction": "53fe3"
+      },
+      {
+        "product_id": "vxzS6",
+        "description": "Sourdough, Bistr",
+        "category": "Grocery",
+        "subcategory": "Bread & Wraps",
+        "zerowaste": false,
+        "transaction": "0c1d7"
+      },
+      {
+        "product_id": "CjEFF",
+        "description": "Orange Valencia",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": false,
+        "transaction": "0c1d7"
+      },
+      {
+        "product_id": "NK3ea",
+        "description": "Lemons (Organic)",
+        "category": "Produce",
+        "subcategory": "Fruit",
+        "zerowaste": false,
+        "transaction": "0c1d7"
+      },
+      {
+        "product_id": "6h2dF",
+        "description": "Sparkling Sour C",
+        "category": "Grocery",
+        "subcategory": "Drinks",
+        "zerowaste": false,
+        "transaction": "0c1d7"
+      }
+    ]
+  }
